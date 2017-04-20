@@ -5,6 +5,7 @@
 # method c def => 
 	type: PyObject* (static)
 	name: module_name_method_name (method_name :- to be called from python)
+	arg: PyObject *self, PyObject *args
 
 # Method Table =>(all methods)
 		(array of struct)
@@ -51,3 +52,13 @@ Code:-
 	       url = 'author_website',
 	       long_description = '''This is really just a demo package.''',
 	       ext_modules = [module1])
+	       
+Usage:- 
+    python setup.py build => to create pyd file
+    python setup.py install => will install the module
+    python setup.py sdist => create distribution
+    
+    binary distribution:-
+	    python setup.py bdist_wininst => windows
+	    python setup.py bdist_rpm
+		python setup.py bdist_dumb
