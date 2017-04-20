@@ -8,7 +8,8 @@ static PyObject* display_display(PyObject *self, PyObject *args) {
 	// convert python input type to c type
 	if(!PyArg_ParseTuple(args, "s", &toBePrinted))
 		return NULL;
-	printf(toBePrinted + "\n");
+	printf(toBePrinted);
+	printf("\n");
 	Py_RETURN_NONE;
 }
 
