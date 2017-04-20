@@ -1,0 +1,53 @@
+##### file_name: module_namemodule.c
+
+####### include Python.h
+
+# method c def => 
+	type: PyObject* (static)
+	name: module_name_method_name (method_name :- to be called from python)
+
+# Method Table =>(all methods)
+		(array of struct)
+		type: PyMethodDef[] (static)
+		name: module_nameMethods
+	struct:	ml_name(called from python), 
+			ml_meth (c def)
+			ml_flag- METH_NOARGS, METH_VARARGS, METH_KEYWORDS
+			ml_doc - docString
+	
+	N.B:- last method will be {NULL, NULL, 0, NULL}
+
+# Module def =>
+		struct
+		type: PyModuleDef (static)
+		name: module_namemodule
+	elem:- 	PyModuleDef_HEAD_INIT,
+			module_docString,
+			-1,
+			MethodTable
+
+# Module Init =>
+	function
+	type: PyMODINIT_FUNC
+	name: PyInit_module_name
+	return: PyModule_Create(&ModuleDef)
+	body: Py_Initialize()
+
+
+NOTE:- While returning NULL, use Py_RETURN_NONE
+
+Setup File Structure (For converting C to py module):
+	This will create package within what more than one module may exist
+Code:-
+	from distutils.core import setup, Extension
+	
+	module1 = Extension('module_name', sources = ['corresponding_c_file.c'])
+	
+	setup (name = 'package_name',
+	       version = '1.0',
+	       description = 'This is a demo package',
+	       author = 'author_name',
+	       author_email = 'author_email_address',
+	       url = 'author_website',
+	       long_description = '''This is really just a demo package.''',
+	       ext_modules = [module1])
